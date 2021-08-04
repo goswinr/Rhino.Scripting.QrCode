@@ -6,8 +6,8 @@
 
 
 
-Rhino.Scripting.QrCode is a small Library to generate QR codes as [Rhino](https://www.rhino3d.com/)  Meshes or Hatches via [ZXing.Net](https://github.com/micjahn/ZXing.Net/)
-It works in Rhino 6, 7 and 8 with F#, C# and IronPython
+`Rhino.Scripting.QrCode` is a small Library for generating QR codes as [Rhino](https://www.rhino3d.com/)  Meshes or Hatches via [ZXing.Net](https://github.com/micjahn/ZXing.Net/)
+It works in Rhino 6 and 7 with F#, C# and IronPython
 
 
 ## Use in F#
@@ -23,13 +23,13 @@ use via nuget:
 ```   
 ## Use in Python
 
-1) Get the dll files: 
+1) Get the files `Rhino.Scripting.QrCode.dll` and `zxing.dll` :
 
-    Either download the latest release. Dont forget to [unblock the zip and dll files](https://www.tenforums.com/tutorials/5357-unblock-file-windows-10-a.html) them ! 
+    by either downloading the latest release an [unblocking the zip and dll files](https://www.tenforums.com/tutorials/5357-unblock-file-windows-10-a.html) ! 
 
     ![logo](Doc/unblock.png)
 
-    Or to avoid this security warning you could compile the scource youself.
+    Or, to avoid this security warning, you could compile the source yourself.
 
 2) Use the dll files
 
@@ -40,7 +40,7 @@ use via nuget:
 
 ## Alternatives
 
-There are alternative QR codes for Rhino like  [qr-code-generator](https://www.food4rhino.com/en/resource/qr-code-generator) that work with images instead of Rhino geoemtry.
+There are alternative QR code tools for Rhino like  [qr-code-generator](https://www.food4rhino.com/en/resource/qr-code-generator) that work with images instead of Rhino geometry.
 
 Also see [discourse.mcneel](https://discourse.mcneel.com/search?q=qr%20code)
 
