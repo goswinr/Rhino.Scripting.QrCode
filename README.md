@@ -4,7 +4,7 @@
 [![Rhino.Scripting.QrCode on nuget.org ](https://img.shields.io/nuget/v/Rhino.Scripting.QrCode.svg)](https://nuget.org/packages/Rhino.Scripting.QrCode) 
 [![Rhino.Scripting.QrCode on fuget.org](https://www.fuget.org/packages/Rhino.Scripting.QrCode/badge.svg)](https://www.fuget.org/packages/Rhino.Scripting.QrCode)
 
-
+![Logo](https://raw.githubusercontent.com/goswinr/Rhino.Scripting.QrCode/main/Doc/logo.png)
 
 `Rhino.Scripting.QrCode` is a small Library for generating QR codes as [Rhino](https://www.rhino3d.com/)  Meshes or Hatches via [ZXing.Net](https://github.com/micjahn/ZXing.Net/)
 It works in Rhino 6 and 7 with F#, C# and IronPython
