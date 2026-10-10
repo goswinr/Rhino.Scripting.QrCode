@@ -1,50 +1,95 @@
-<!-- in VS Code press Ctrl + Shift + V to see a preview-->
+![logo](https://raw.githubusercontent.com/goswinr/Rhino.Scripting.QrCode/main/Docs/img/logo128.png)
+
 # Rhino.Scripting.QrCode
 
-[![Rhino.Scripting.QrCode on nuget.org ](https://img.shields.io/nuget/v/Rhino.Scripting.QrCode.svg)](https://nuget.org/packages/Rhino.Scripting.QrCode) 
-[![Rhino.Scripting.QrCode on fuget.org](https://www.fuget.org/packages/Rhino.Scripting.QrCode/badge.svg)](https://www.fuget.org/packages/Rhino.Scripting.QrCode)
+[![Rhino.Scripting.QrCode on nuget.org](https://img.shields.io/nuget/v/Rhino.Scripting.QrCode)](https://www.nuget.org/packages/Rhino.Scripting.QrCode/)
+[![Build Status](https://github.com/goswinr/Rhino.Scripting.QrCode/actions/workflows/build.yml/badge.svg)](https://github.com/goswinr/Rhino.Scripting.QrCode/actions/workflows/build.yml)
+[![Docs Build Status](https://github.com/goswinr/Rhino.Scripting.QrCode/actions/workflows/docs.yml/badge.svg)](https://github.com/goswinr/Rhino.Scripting.QrCode/actions/workflows/docs.yml)
+[![license](https://img.shields.io/github/license/goswinr/Rhino.Scripting.QrCode)](LICENSE.md)
+![code size](https://img.shields.io/github/languages/code-size/goswinr/Rhino.Scripting.QrCode.svg)
 
-![Logo](https://raw.githubusercontent.com/goswinr/Rhino.Scripting.QrCode/main/Doc/logo.png)
+Rhino.Scripting.QrCode is a small library for creating QR codes as [Rhino3D](https://www.rhino3d.com/) Meshes or Hatches.<br>
+It uses [ZXing.Net](https://github.com/micjahn/ZXing.Net) to encode the text.<br>
+The QR code is vector geometry, not an image, so it stays sharp at any size.
 
-`Rhino.Scripting.QrCode` is a small Library for generating QR codes as [Rhino](https://www.rhino3d.com/)  Meshes or Hatches via [ZXing.Net](https://github.com/micjahn/ZXing.Net/)
-It works in Rhino 6 and 7 with F#, C# and IronPython
+It works in Rhino 7 and 8, from F#, C# and Python.
 
+The QR code is created at the World Origin with a size of 1.0 x 1.0 units, using the high error correction level (30%).<br>
+Text with non-ASCII characters is encoded as UTF-8.
 
 ## Use in F#
 
-In [Seff.Rhino](https://github.com/goswinr/Seff.Rhino) Editor.   
-use via nuget:
+For example in the [Fesh.Rhino](https://github.com/goswinr/Fesh.Rhino) scripting editor:
 
 ```fsharp
-#r @"C:\Program Files\Rhino 7\System\RhinoCommon.dll"  // adapt path if needed
-#r @"D:\Git\Rhino.Scripting\src\bin\Debug\net472\Rhino.Scripting.dll"
+#r "nuget: Rhino.Scripting.QrCode"
+open Rhino
+open Rhino.Geometry
+open Rhino.Scripting
 
-/// set current view to world or layout !!
-```   
+let doc = RhinoDoc.ActiveDoc
+
+// as a Mesh, scaled to 50 units
+let mesh = QrCode.asMesh "https://www.rhino3d.com"
+mesh.Transform(Transform.Scale(Point3d.Origin, 50.0)) |> ignore
+doc.Objects.AddMesh(mesh) |> ignore
+
+// as Hatches, using the 'Solid' hatch pattern of the active document
+for hatch in QrCode.asHatches "https://www.rhino3d.com" do
+    doc.Objects.AddHatch(hatch) |> ignore
+
+doc.Views.Redraw()
+```
+
+## Use in C#
+
+For example in the Rhino 8 script editor:
+
+```csharp
+#r "nuget: Rhino.Scripting.QrCode"
+using Rhino;
+using Rhino.Scripting;
+
+var mesh = QrCode.asMesh("https://www.rhino3d.com");
+RhinoDoc.ActiveDoc.Objects.AddMesh(mesh);
+RhinoDoc.ActiveDoc.Views.Redraw();
+```
+
 ## Use in Python
 
-1) Get the files `Rhino.Scripting.QrCode.dll` and `zxing.dll` :
+1) Get the files `Rhino.Scripting.QrCode.dll`, `zxing.dll` and `FSharp.Core.dll` into one folder.<br>
+   Run `dotnet build` on this repository, then they are all in `bin/Release/net48`.<br>
+   If you download dll files instead, you might need to [unblock](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file) them first:
 
-    by either downloading the latest release an [unblocking the zip and dll files](https://www.tenforums.com/tutorials/5357-unblock-file-windows-10-a.html) ! 
+   ![unblock](https://raw.githubusercontent.com/goswinr/Rhino.Scripting.QrCode/main/Docs/img/unblock.png)
 
-    ![logo](Doc/unblock.png)
-
-    Or, to avoid this security warning, you could compile the source yourself.
-
-2) Use the dll files
+2) Reference the dll in IronPython:
 
 ```python
-#r @"C:\Program Files\Rhino 7\System\RhinoCommon.dll"  // adapt path if needed
-#r @"D:\Git\Rhino.Scripting\src\bin\Debug\net472\Rhino.Scripting.dll"
-``` 
+import clr
+clr.AddReferenceToFileAndPath(r"C:\path\to\bin\Release\net48\Rhino.Scripting.QrCode.dll")
+import Rhino
+from Rhino.Scripting import QrCode
+
+mesh = QrCode.asMesh("https://www.rhino3d.com")
+Rhino.RhinoDoc.ActiveDoc.Objects.AddMesh(mesh)
+Rhino.RhinoDoc.ActiveDoc.Views.Redraw()
+```
+
+## Full API Documentation
+
+[goswinr.github.io/Rhino.Scripting.QrCode](https://goswinr.github.io/Rhino.Scripting.QrCode/reference/rhino-scripting-qrcode.html)
 
 ## Alternatives
 
-There are alternative QR code tools for Rhino like  [qr-code-generator](https://www.food4rhino.com/en/resource/qr-code-generator) that work with images instead of Rhino geometry.
+There are other QR code tools for Rhino that create images instead of geometry,<br>
+see [discourse.mcneel.com](https://discourse.mcneel.com/search?q=qr%20code).
 
-Also see [discourse.mcneel](https://discourse.mcneel.com/search?q=qr%20code)
+## Contributing
+Contributions are welcome even for small things like typos. If you have problems with this library please submit an issue.
 
+### License
+[MIT](https://github.com/goswinr/Rhino.Scripting.QrCode/blob/main/LICENSE.md)
 
-
-
-
+### Changelog
+see [CHANGELOG.md](https://github.com/goswinr/Rhino.Scripting.QrCode/blob/main/CHANGELOG.md)
