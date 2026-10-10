@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Target net48 (Rhino 7 and 8) and net8.0 (Rhino 8), the same as Rhino.Scripting
-- Reference RhinoCommon 7 and 8 instead of 6
+- Target net48, net8.0 and net10.0, for Rhino 8 and later. Rhino 6 and 7 are not supported anymore
+- Reference RhinoCommon 8 instead of 6
 - Update ZXing.Net from 0.16.6 to 0.16.11
 - NuGet package id is `Rhino.Scripting.QrCode` instead of `Rhino6.Scripting.QrCode`
 ### Fixed

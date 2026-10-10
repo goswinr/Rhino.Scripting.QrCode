@@ -12,7 +12,7 @@ Rhino.Scripting.QrCode is a small library for creating QR codes as [Rhino3D](htt
 It uses [ZXing.Net](https://github.com/micjahn/ZXing.Net) to encode the text.<br>
 The QR code is vector geometry, not an image, so it stays sharp at any size.
 
-It works in Rhino 7 and 8, from F#, C# and Python.
+It works in Rhino 8 and later, from F#, C# and Python.
 
 The QR code is created at the World Origin with a size of 1.0 x 1.0 units, using the high error correction level (30%).<br>
 Text with non-ASCII characters is encoded as UTF-8.

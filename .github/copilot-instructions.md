@@ -1,12 +1,12 @@
 # Rhino.Scripting.QrCode - AI Coding Guidelines
 
 ## Project Overview
-Small F# library that creates QR codes as Rhino3D Meshes or Hatches, using [ZXing.Net](https://github.com/micjahn/ZXing.Net) for encoding. Targets .NET Framework 4.8 (Rhino 7) and .NET 8.0 (Rhino 8), the same as [Rhino.Scripting](https://github.com/goswinr/Rhino.Scripting). There are no tests in this project.
+Small F# library that creates QR codes as Rhino3D Meshes or Hatches, using [ZXing.Net](https://github.com/micjahn/ZXing.Net) for encoding. Targets .NET Framework 4.8, .NET 8.0 and .NET 10.0, for Rhino 8 and later only. Rhino 8 runs on net48 or net8.0. There are no tests in this project.
 
 ## Build & Release
 
 ```powershell
-dotnet build  # Builds for both net48 and net8.0
+dotnet build  # Builds for net48, net8.0 and net10.0
 ```
 
 - Version is extracted from [CHANGELOG.md](CHANGELOG.md) by `Ionide.KeepAChangelog.Tasks` — update the changelog to set the version.
@@ -29,4 +29,4 @@ All code is in [Src/QrCode.fs](Src/QrCode.fs), in the module `Rhino.Scripting.Qr
 
 ## Dependencies
 - **ZXing.Net** — QR code encoding
-- **RhinoCommon** — v7.x for net48, v8.x for net8.0 (PrivateAssets, not redistributed)
+- **RhinoCommon** — v8.x for all target frameworks (PrivateAssets, not redistributed)
